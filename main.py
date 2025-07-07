@@ -2,7 +2,9 @@ from SQL import funciones_sql
 from NSQL import funciones_NSQL
 
 def menu_SQL():
+    """Menu para interactuar con la base de datos SQL."""
     while True:
+        # Muestra las opciones disponibles para SQL
         print("""
 --- Aguas Araucanía ---
 1. Ver reclamos por cliente
@@ -13,12 +15,15 @@ def menu_SQL():
 """)
         op = int(input('Ingrese una opción: '))
         if op == 1:
+            # Solicita el nombre del cliente y muestra sus reclamos
             nomcliente = input('Ingrese el nombre del cliente: ')
             funciones_sql.VerReclamosPorCliente(nomcliente)
         elif op == 2:
+            # Solicita el ID del reclamo y muestra su respuesta
             idreclamo = input('Ingrese el id del reclamo: ')
             funciones_sql.VerRespuestaReclamo(idreclamo)
         elif op == 3:
+            # Muestra todos los reclamos y pregunta si desea exportarlos
             funciones_sql.VerTodosLosReclamos()
             op2= input('¿Desea exportar la lista de reclamos? (s/n): ')
             if op2 == 's':
@@ -29,6 +34,7 @@ def menu_SQL():
             else:
                 print('Opción no válida, no se exportó la lista de reclamos.')
         elif op == 4:
+            # Muestra todos los clientes y pregunta si desea exportarlos
             funciones_sql.VerTodosLosClientes()
             op2 = input('¿Desea exportar la lista de clientes? (s/n): ')
             if op2 == 's':
@@ -39,12 +45,15 @@ def menu_SQL():
             else:
                 print('Opción no válida, no se exportó la lista de clientes.')
         elif op == 0:
+            # Sale del menú SQL
             break
         else:
             print('Opción no válida')
 
 def menu_Mongo():
+    """Menu para interactuar con la base de datos MongoDB."""
     while True:
+        # Muestra las opciones disponibles para MongoDB
         print("""
 --- Aguas Araucanía ---
 1. Ver todas las encuestas.
@@ -55,21 +64,28 @@ def menu_Mongo():
 """)
         op = int(input('Ingrese una opción: '))
         if op == 1:
+            # Muestra todas las encuestas almacenadas en MongoDB
             funciones_NSQL.VerTodasLasEncuestas()
         elif op == 2:
+            # Muestra todos los comentarios almacenados en MongoDB
             funciones_NSQL.VerTodosLosComentarios()
         elif op == 3:
+            # Muestra todos los archivos adjuntos almacenados en MongoDB
             funciones_NSQL.VerTodosLosArchivosAdjuntos()
         elif op == 4:
+            # Importa todos los clientes desde la base de datos SQL a MongoDB
             funciones_NSQL.importarClientes()
             print('Clientes importados exitosamente.')
         elif op == 0:
+            # Sale del menú MongoDB
             break
         else:
             print('Opción no válida')
             
 def main_menu():
+    """Menu principal para seleccionar entre SQL y MongoDB."""
     while True:
+        # Muestra el menú principal para elegir el tipo de base de datos
         print("""
 --- Aguas Araucanía ---
 1. Ingresar a SQL
@@ -77,14 +93,18 @@ def main_menu():
 0. Salir""")
         op = int(input('Ingrese una opción: '))
         if op == 1:
+            # Ingresa al menú de SQL
             menu_SQL()
         elif op == 2:
+            # Ingresa al menú de MongoDB
             menu_Mongo()
         elif op == 0:
+            # Sale del programa
             print('Saliendo...')
             break
         else:
             print('Opción no válida')
 
 if __name__ == "__main__":
+    # Inicia el menú principal solo si el archivo se ejecuta directamente
     main_menu()

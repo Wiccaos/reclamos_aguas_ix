@@ -1,29 +1,32 @@
 from pymongo import MongoClient
 from Auxiliares import Constantes
 
-def colec_clientes():
+def get_coleccion(nombre_coleccion):
     """
-    Conecta a la base de datos MongoDB y retorna la colección de clientes.
+    Conecta a la base de datos MongoDB y retorna la colección especificada.
     """
-    cliente=MongoClient("mongodb://localhost:27017/")
+    # Crea un cliente de MongoDB usando la URL definida en Constantes
+    cliente = MongoClient(Constantes.m_cliente)
+    # Selecciona la base de datos definida en Constantes
     db = cliente[Constantes.DB]
-    coleccion_clientes = db['clientes']
-    return coleccion_clientes
+    # Retorna la colección solicitada
+    return db[nombre_coleccion]
+
+# Funciones para obtener cada colección específica de la base de datos
+
+def colec_clientes():
+    """Retorna la colección 'clientes'"""
+    return get_coleccion('clientes')
 
 def colec_encuestas():
-    """
-    Conecta a la base de datos MongoDB y retorna la colección de encuestas.
-    """
-    cliente=MongoClient("mongodb://localhost:27017/")
-    db = cliente[Constantes.DB]
-    coleccion_encuestas = db['encuestas']
-    return coleccion_encuestas
+    """Retorna la colección 'encuestas'"""
+    return get_coleccion('encuestas')
 
 def colec_comentarios():
-    """
-    Conecta a la base de datos MongoDB y retorna la colección de comentarios de redes.
-    """
-    cliente = MongoClient("mongodb://localhost:27017/")
-    db = cliente[Constantes.DB]
-    coleccion_comentarios = db['comentarios_redes']  # Cambiado aquí
-    return coleccion_comentarios
+    """Retorna la colección 'comentarios_redes'"""
+    return get_coleccion('comentarios_redes')
+
+def colec_archivos_adjuntos():
+    """Retorna la colección 'archivos_adjuntos'"""
+    return get_coleccion('archivos_adjuntos')
+

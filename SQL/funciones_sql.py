@@ -3,12 +3,14 @@ from . import SQL_conexion
 from prettytable import from_db_cursor
 
 def VerReclamosPorCliente(nomcliente):
+    """Muestra los reclamos de un cliente específico según su nombre."""
     cnx_sql = SQL_conexion.SQLconexion()
     if cnx_sql is None:
         print("No se pudo conectar a la base de datos.")
         return
     cursor = cnx_sql.cursor()
     try:
+        # Consulta para obtener los reclamos de un cliente por nombre (parcial)
         consulta = """
         SELECT 
             r.id_reclamo AS reclamo_id,
@@ -31,12 +33,14 @@ def VerReclamosPorCliente(nomcliente):
         cnx_sql.close()
 
 def VerRespuestaReclamo(idreclamo):
+    """Muestra la respuesta de un reclamo específico según su ID de reclamo."""
     cnx_sql = SQL_conexion.SQLconexion()
     if cnx_sql is None:
         print("No se pudo conectar a la base de datos.")
         return
     cursor = cnx_sql.cursor()
     try:
+        # Consulta para obtener la respuesta de un reclamo, junto con información del cliente y soporte
         consulta = """
         SELECT 
             r.titulo AS titulo_reclamo,
@@ -64,12 +68,14 @@ def VerRespuestaReclamo(idreclamo):
         cnx_sql.close()
 
 def VerTodosLosClientes():
+    """Muestra todos los clientes registrados en la base de datos."""
     cnx_sql = SQL_conexion.SQLconexion()
     if cnx_sql is None:
         print("No se pudo conectar a la base de datos.")
         return 
     cursor = cnx_sql.cursor()
     try:
+        # Consulta para obtener todos los clientes
         consulta = "SELECT * FROM aguas_araucania.clientes;"
         cursor.execute(consulta)
         tab = from_db_cursor(cursor)
@@ -81,23 +87,26 @@ def VerTodosLosClientes():
         cnx_sql.close()
 
 def ExportarClientes():
+    """Exporta la lista de clientes a un archivo CSV."""
     cnx_sql = SQL_conexion.SQLconexion()
     if cnx_sql is None:
         print("No se pudo conectar a la base de datos.")
         return
     cursor = cnx_sql.cursor()
     try:
+        # Consulta para obtener todos los clientes
         consulta = "SELECT * FROM aguas_araucania.clientes;"
         cursor.execute(consulta)
         rows = cursor.fetchall()
         columns = [desc[0] for desc in cursor.description]
-        # Asegura que la carpeta Auxiliares existe
+        # Construye la ruta para el archivo CSV en la carpeta Auxiliares
         ruta = os.path.join(os.path.dirname(__file__), '..', 'Auxiliares', 'clientes.csv')
-        os.makedirs(os.path.dirname(ruta), exist_ok=True)
+        os.makedirs(os.path.dirname(ruta), exist_ok=True)  # Crea la carpeta si no existe
+        # Escribe los datos en el archivo CSV
         with open(ruta, 'w', newline='', encoding='utf-8') as f:
             writer = csv.writer(f)
-            writer.writerow(columns)
-            writer.writerows(rows)
+            writer.writerow(columns)  # Escribe los nombres de las columnas
+            writer.writerows(rows)    # Escribe los datos de los clientes
         print("Lista de clientes exportada exitosamente en Auxiliares/clientes.csv.")
     except Exception as e:
         print(f"Error al exportar la lista de clientes: {e}")
@@ -106,12 +115,14 @@ def ExportarClientes():
         cnx_sql.close()
 
 def VerTodosLosReclamos():
+    """Muestra todos los reclamos registrados en la base de datos."""
     cnx_sql = SQL_conexion.SQLconexion()
     if cnx_sql is None:
         print("No se pudo conectar a la base de datos.")
         return 
     cursor = cnx_sql.cursor()
     try:
+        # Consulta para obtener todos los reclamos
         consulta = "SELECT * FROM aguas_araucania.reclamos;"
         cursor.execute(consulta)
         tab = from_db_cursor(cursor)
@@ -123,23 +134,26 @@ def VerTodosLosReclamos():
         cnx_sql.close()
 
 def ExportarReclamos():
+    """Exporta la lista de reclamos a un archivo CSV."""
     cnx_sql = SQL_conexion.SQLconexion()
     if cnx_sql is None:
         print("No se pudo conectar a la base de datos.")
         return
     cursor = cnx_sql.cursor()
     try:
+        # Consulta para obtener todos los reclamos
         consulta = "SELECT * FROM aguas_araucania.reclamos;"
         cursor.execute(consulta)
         rows = cursor.fetchall()
         columns = [desc[0] for desc in cursor.description]
-        # Asegura que la carpeta Auxiliares existe
+        # Construye la ruta para el archivo CSV en la carpeta Auxiliares
         ruta = os.path.join(os.path.dirname(__file__), '..', 'Auxiliares', 'reclamos.csv')
-        os.makedirs(os.path.dirname(ruta), exist_ok=True)
+        os.makedirs(os.path.dirname(ruta), exist_ok=True)  # Crea la carpeta si no existe
+        # Escribe los datos en el archivo CSV
         with open(ruta, 'w', newline='', encoding='utf-8') as f:
             writer = csv.writer(f)
-            writer.writerow(columns)
-            writer.writerows(rows)
+            writer.writerow(columns)  # Escribe los nombres de las columnas
+            writer.writerows(rows)    # Escribe los datos de los reclamos
         print("Lista de reclamos exportada exitosamente en Auxiliares/reclamos.csv.")
     except Exception as e:
         print(f"Error al exportar la lista de reclamos: {e}")
