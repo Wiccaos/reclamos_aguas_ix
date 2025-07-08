@@ -11,6 +11,7 @@ def menu_SQL():
 2. Ver respuesta de reclamo
 3. Ver todos los reclamos
 4. Ver todos los clientes
+5. ver todos las respuestas
 0. salir
 """)
         op = int(input('Ingrese una opción: '))
@@ -44,6 +45,17 @@ def menu_SQL():
                 print('No se exportó la lista de clientes.')
             else:
                 print('Opción no válida, no se exportó la lista de clientes.')
+        elif op == 5:
+            # Muestra todas las respuestas y pregunta si desea exportarlas
+            funciones_sql.verTodasLasRespuestas()
+            op2 = input('¿Desea exportar la lista de respuestas? (s/n): ')
+            if op2 == 's':
+                funciones_sql.exportarRespuestas()
+                print('Lista de respuestas exportada exitosamente.')
+            elif op2 == 'n':
+                print('No se exportó la lista de respuestas.')
+            else:
+                print('Opción no válida, no se exportó la lista de respuestas.')
         elif op == 0:
             # Sale del menú SQL
             break

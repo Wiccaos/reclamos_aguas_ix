@@ -1,0 +1,4 @@
+id_reclamo,id_cliente,fecha_creacion,fecha_cierre,titulo,descripcion
+1,1,2025-07-05 22:04:26,,Fuga en calle principal,Hay una fuga de agua en Av. Principal frente al número 200
+2,2,2025-07-05 22:04:26,,Factura con monto incorrecto,La última factura viene con un monto 50% mayor al consumo real
+3,3,2025-07-05 22:04:26,,Agua con mal olor,El agua que llega a mi domicilio tiene un olor desagradable

@@ -53,3 +53,20 @@ def importarClientes():
     except Exception as e:
         print(f"Error al importar clientes: {e}")
 
+def importarEncuestas():
+    """Importa las encuestas desde un archivo CSV exportado por SQL a MongoDB."""
+    funciones_sql.ExportarEncuestas()  # Exporta las encuestas desde SQL a un archivo CSV
+    try:
+        # Construye la ruta al archivo CSV exportado
+        ruta = os.path.join(os.path.dirname(__file__), '..', 'Auxiliares', 'encuestas.csv')
+        with open(ruta, newline='', encoding='utf-8') as archivo:
+            lector = csv.DictReader(archivo)  # Lee los datos del CSV como diccionarios
+            datos = list(lector)
+        if datos:
+            coleccion = NSQL_conexion.get_coleccion('encuestas')  # Obtiene la colección de encuestas en MongoDB
+            coleccion.insert_many(datos)  # Inserta todas las encuestas en la colección
+            print("Encuestas importadas correctamente.")
+        else:
+            print("No hay datos para importar.")
+    except Exception as e:
+        print(f"Error al importar encuestas: {e}")
