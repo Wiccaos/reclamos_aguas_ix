@@ -112,6 +112,7 @@ def main_menu():
 --- Aguas Araucanía ---
 1. Ingresar a SQL
 2. Ingresar a MongoDB
+3. Generar reporte consolidado
 0. Salir""")
         op = int(input('Ingrese una opción: '))
         if op == 1:
@@ -120,6 +121,10 @@ def main_menu():
         elif op == 2:
             # Ingresa al menú de MongoDB
             menu_Mongo()
+        elif op == 3:
+            # Genera el reporte consolidado de reclamos, clientes, respuestas y encuestas
+            from NSQL import reportes
+            reportes.consolidar_y_exportar()
         elif op == 0:
             # Sale del programa
             print('Saliendo...')

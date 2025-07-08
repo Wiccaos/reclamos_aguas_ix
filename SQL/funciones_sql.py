@@ -180,7 +180,7 @@ def verTodasLasRespuestas():
         cursor.close()
         cnx_sql.close()
 
-def exportarRespuestas():
+def ExportarRespuestas():
     """Exporta la lista de respuestas a un archivo CSV."""
     cnx_sql = SQL_conexion.SQLconexion()
     if cnx_sql is None:
