@@ -5,7 +5,7 @@ from SQL import funciones_sql
 def VerTodasLasEncuestas():
     """Muestra todas las encuestas almacenadas en la colección de MongoDB."""
     try:
-        coleccion = NSQL_conexion.colec_encuestas()  # Obtiene la colección de encuestas
+        coleccion = NSQL_conexion.get_coleccion('encuestas')  # Obtiene la colección de encuestas
         encuestas = coleccion.find()  # Recupera todos los documentos
         for encuesta in encuestas:
             # Imprime los datos relevantes de cada encuesta
@@ -16,7 +16,7 @@ def VerTodasLasEncuestas():
 def VerTodosLosComentarios():
     """Muestra todos los comentarios almacenados en la colección de MongoDB."""
     try:
-        coleccion = NSQL_conexion.colec_comentarios()  # Obtiene la colección de comentarios
+        coleccion = NSQL_conexion.get_coleccion('comentarios_redes')  # Obtiene la colección de comentarios
         comentarios = coleccion.find()  # Recupera todos los documentos
         for comentario in comentarios:
             # Imprime los datos relevantes de cada comentario
@@ -27,7 +27,7 @@ def VerTodosLosComentarios():
 def VerTodosLosArchivosAdjuntos():
     """Muestra todos los archivos adjuntos almacenados en la colección de MongoDB."""
     try:
-        coleccion = NSQL_conexion.colec_archivos_adjuntos()  # Usa la función de conexión centralizada
+        coleccion = NSQL_conexion.get_coleccion('archivos_adjuntos')  # obtiene la colección de archivos adjuntos
         archivos = coleccion.find()  # Recupera todos los documentos
         for archivo in archivos:
             # Imprime los datos relevantes de cada archivo adjunto
@@ -45,7 +45,7 @@ def importarClientes():
             lector = csv.DictReader(archivo)  # Lee los datos del CSV como diccionarios
             datos = list(lector)
         if datos:
-            coleccion = NSQL_conexion.colec_clientes()  # Obtiene la colección de clientes en MongoDB
+            coleccion = NSQL_conexion.get_coleccion('clientes')  # Obtiene la colección de clientes en MongoDB
             coleccion.insert_many(datos)  # Inserta todos los clientes en la colección
             print("Clientes importados correctamente.")
         else:
