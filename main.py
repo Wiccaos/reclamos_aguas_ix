@@ -72,6 +72,8 @@ def menu_Mongo():
 2. Ver todos los comentarios.
 3. Ver todos los archivos adjuntos.
 4. Importar todos los clientes desde la db SQL.
+5. importar todos los reclamos desde la db SQL.
+6. importar todas las respuestas desde la db SQL.
 0. Salir
 """)
         op = int(input('Ingrese una opción: '))
@@ -88,6 +90,14 @@ def menu_Mongo():
             # Importa todos los clientes desde la base de datos SQL a MongoDB
             funciones_NSQL.importarClientes()
             print('Clientes importados exitosamente.')
+        elif op == 5:
+            # Importa todos los reclamos desde la base de datos SQL a MongoDB
+            funciones_NSQL.importarReclamos()
+            print('Reclamos importados exitosamente.')
+        elif op == 6:
+            # Importa todas las respuestas desde la base de datos SQL a MongoDB
+            funciones_NSQL.importarRespuestas()
+            print('Respuestas importadas exitosamente.')
         elif op == 0:
             # Sale del menú MongoDB
             break
